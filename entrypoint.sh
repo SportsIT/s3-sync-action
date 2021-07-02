@@ -46,7 +46,7 @@ sh -c "aws s3 sync ${SOURCE_DIR:-.} s3://${AWS_S3_BUCKET}/${DEST_DIR} \
 
 if [ -n "$DISTRIBUTION_ID" ]; then
   # Invalid the cloundfront distribution
-  sh -c "aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "${SOURCE_DIR}/*" --profile s3-sync-action"
+  sh -c "aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*' --profile s3-sync-action"
 fi
 
 # Clear out credentials after we're done.
