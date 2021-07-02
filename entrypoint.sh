@@ -27,11 +27,6 @@ if [ -n "$AWS_S3_ENDPOINT" ]; then
   ENDPOINT_APPEND="--endpoint-url $AWS_S3_ENDPOINT"
 fi
 
-#  If no path to invalidate, then default it
-if [ -z "$INVALIDATION_PATH" ]; then
-  INVALIDATION_PATH="/*"
-fi
-
 # Create a dedicated profile for this action to avoid conflicts
 # with past/future actions.
 # https://github.com/jakejarvis/s3-sync-action/issues/1
@@ -51,7 +46,7 @@ sh -c "aws s3 sync ${SOURCE_DIR:-.} s3://${AWS_S3_BUCKET}/${DEST_DIR} \
 
 if [ -n "$DISTRIBUTION_ID" ]; then
   # Invalid the cloundfront distribution
-  sh -c "aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths ${$INVALIDATION_PATH} --profile s3-sync-action"
+  sh -c "aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "${SOURCE_DIR}/*" --profile s3-sync-action"
 fi
 
 # Clear out credentials after we're done.
