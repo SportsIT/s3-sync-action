@@ -1,6 +1,6 @@
-name: "S3 Sync"
-description: "Sync a directory to an AWS S3 repository"
-author: jakejarvis
+name: "S3 Sync and CloudFront Invalidate"
+description: "Sync a directory to an AWS S3 repository and invalidate a CloudFront distribution"
+author: sportsit
 runs:
   using: docker
   image: Dockerfile
